@@ -16,7 +16,6 @@ def percentil(lista, perc):
     return lista[pl]+(lista[pu]-lista[pl])*perc
 
 def datos_basicos(lista):
-    
     lista.sort()    
     lista2 = []
     for i in lista:
@@ -92,16 +91,19 @@ def fun_uno(data):
                 if mt.isnan(sal[i]) == 0:
                     lista_des.append(sal[i])
     
-    print('Datos hombres con salario: \n')
+    print('\nDatos hombres con salario: \n')
     five_number_summary(lista_hom)
-    print('Datos mujeres con salario: \n')
+    print('\nDatos mujeres con salario: \n')
     five_number_summary(lista_muj)
-    print('Datos genero desconocido con salario: \n')
+    print('\nDatos genero desconocido con salario: \n')
     five_number_summary(lista_des)
     
     plt.boxplot(lista_hom)
+    plt.show()
     plt.boxplot(lista_muj)
+    plt.show()
     plt.boxplot(lista_des)
+    plt.show()
     return
 
 
@@ -118,7 +120,7 @@ def fun_dos(data):
                tem = lista_nom.count(a)
                if tem == 0:
                    lista_nom.append(a)
-    lista_nom.append('Unkown')             
+    lista_nom.append('Unkmown')             
     tot_nom = len(lista_nom)
 
     sal_tot = []
@@ -144,6 +146,7 @@ def fun_dos(data):
             print('\nFive Number Summary de ',lista_nom[i])   
             five_number_summary(sal_tot[i]) 
             plt.boxplot(sal_tot[i])
+            plt.show()
         else:
             print('\nNo hay datos en la lista de ', lista_nom[i])
                                    
@@ -191,6 +194,7 @@ def fun_tres(data):
             print('\nFive Number Summary de ',lista_nom[i])   
             five_number_summary(sal_tot[i]) 
             plt.boxplot(sal_tot[i])
+            plt.show()
         else:
             print('\nNo hay datos en la lista de ', lista_nom[i])
                     
@@ -209,7 +213,7 @@ def fun_cuatro(data):
                tem = lista_nom.count(a)
                if tem == 0:
                    lista_nom.append(a)
-    lista_nom.append('Unkown')             
+    lista_nom.append('Unknown')             
     tot_nom = len(lista_nom)
 
     sal_tot = []
@@ -232,9 +236,8 @@ def fun_cuatro(data):
                 
     for i in range(0,len(lista_nom)):           
         if sal_tot[i]:
-            print('\nFive Number Summary de ',lista_nom[i])   
-            five_number_summary(sal_tot[i]) 
-            plt.boxplot(sal_tot[i])
+            print('\nDatos de ',lista_nom[i])   
+            datos_basicos(sal_tot[i]) 
         else:
             print('\nNo hay datos en la lista de ', lista_nom[i])
                                    
@@ -252,7 +255,7 @@ def fun_cinco(data):
                tem = lista_nom.count(a)
                if tem == 0:
                    lista_nom.append(a)
-    lista_nom.append('Unkown')             
+    lista_nom.append('Unknown')             
     tot_nom = len(lista_nom)
 
     res_tot = [0] * tot_nom
@@ -289,74 +292,40 @@ def fun_seis(data):
     
     for i in range(0,len(gen)):
         if gen[i] == 'Man':
-            if pd.isnull(ae[i]) or ae[i] == 'Less than 1 year' or ae[i] == '1' or ae[i] == '2' or ae[i] == '3' or ae[i] == '4':
-                bins_hom.append(3)
-            if ae[i] == '5' or ae[i] == '6' or ae[i] == '7' or ae[i] == '8' or ae[i] == '9':
-                bins_hom.append(8) 
-            if ae[i] == '10' or ae[i] == '11' or ae[i] == '12' or ae[i] == '13' or ae[i] == '14':
-                bins_hom.append(12)  
-            if ae[i] == '15' or ae[i] == '16' or ae[i] == '17' or ae[i] == '18' or ae[i] == '19':
-                bins_hom.append(17)  
-            if ae[i] == '20' or ae[i] == '21' or ae[i] == '22' or ae[i] == '23' or ae[i] == '24':
-                bins_hom.append(22)   
-            if ae[i] == '25' or ae[i] == '26' or ae[i] == '27' or ae[i] == '28' or ae[i] == '29':
-                bins_hom.append(27)   
-            if ae[i] == '30' or ae[i] == '31' or ae[i] == '32' or ae[i] == '33' or ae[i] == '34':
-                bins_hom.append(32)   
-            if ae[i] == '35' or ae[i] == '36' or ae[i] == '37' or ae[i] == '38' or ae[i] == '39':
-                bins_hom.append(37)   
-            if ae[i] == '40' or ae[i] == '41' or ae[i] == '42' or ae[i] == '43' or ae[i] == '44':
-                bins_hom.append(42)        
-            if ae[i] == '45' or ae[i] == '46' or ae[i] == '47' or ae[i] == '48' or ae[i] == '49' or ae[i] == 'More than 50 year':
-                bins_hom.append(47)        
+            if ae[i] == 'Less than 1 year':
+                bins_hom.append(0.5)
+            else:    
+                if ae[i] == 'More than 50 years':
+                    bins_hom.append(50.5)
+                else: 
+                    if pd.isnull(ae[i]) == 0:
+                        bins_hom.append(int(ae[i]))      
         else:
             if gen[i] == 'Woman':
-                if pd.isnull(ae[i]) or ae[i] == 'Less than 1 year' or ae[i] == '1' or ae[i] == '2' or ae[i] == '3' or ae[i] == '4':
-                    bins_muj.append(3)
-                if ae[i] == '5' or ae[i] == '6' or ae[i] == '7' or ae[i] == '8' or ae[i] == '9':
-                    bins_muj.append(8) 
-                if ae[i] == '10' or ae[i] == '11' or ae[i] == '12' or ae[i] == '13' or ae[i] == '14':
-                    bins_muj.append(12)  
-                if ae[i] == '15' or ae[i] == '16' or ae[i] == '17' or ae[i] == '18' or ae[i] == '19':
-                    bins_muj.append(17)  
-                if ae[i] == '20' or ae[i] == '21' or ae[i] == '22' or ae[i] == '23' or ae[i] == '24':
-                    bins_muj.append(22)   
-                if ae[i] == '25' or ae[i] == '26' or ae[i] == '27' or ae[i] == '28' or ae[i] == '29':
-                    bins_muj.append(27)   
-                if ae[i] == '30' or ae[i] == '31' or ae[i] == '32' or ae[i] == '33' or ae[i] == '34':
-                    bins_muj.append(32)   
-                if ae[i] == '35' or ae[i] == '36' or ae[i] == '37' or ae[i] == '38' or ae[i] == '39':
-                    bins_muj.append(37)   
-                if ae[i] == '40' or ae[i] == '41' or ae[i] == '42' or ae[i] == '43' or ae[i] == '44':
-                    bins_muj.append(42)        
-                if ae[i] == '45' or ae[i] == '46' or ae[i] == '47' or ae[i] == '48' or ae[i] == '49' or ae[i] == 'More than 50 year':
-                    bins_muj.append(47)
+                if ae[i] == 'Less than 1 year':
+                    bins_muj.append(0.5)
+                else:    
+                    if ae[i] == 'More than 50 years':
+                        bins_muj.append(50.5)
+                    else: 
+                        if pd.isnull(ae[i]) == 0:
+                            bins_muj.append(int(ae[i]))   
             else:
-                if pd.isnull(ae[i]) or ae[i] == 'Less than 1 year' or ae[i] == '1' or ae[i] == '2' or ae[i] == '3' or ae[i] == '4':
-                    bins_des.append(3)
-                if ae[i] == '5' or ae[i] == '6' or ae[i] == '7' or ae[i] == '8' or ae[i] == '9':
-                    bins_des.append(8) 
-                if ae[i] == '10' or ae[i] == '11' or ae[i] == '12' or ae[i] == '13' or ae[i] == '14':
-                    bins_des.append(12)  
-                if ae[i] == '15' or ae[i] == '16' or ae[i] == '17' or ae[i] == '18' or ae[i] == '19':
-                    bins_des.append(17)  
-                if ae[i] == '20' or ae[i] == '21' or ae[i] == '22' or ae[i] == '23' or ae[i] == '24':
-                    bins_des.append(22)   
-                if ae[i] == '25' or ae[i] == '26' or ae[i] == '27' or ae[i] == '28' or ae[i] == '29':
-                    bins_des.append(27)   
-                if ae[i] == '30' or ae[i] == '31' or ae[i] == '32' or ae[i] == '33' or ae[i] == '34':
-                    bins_des.append(32)   
-                if ae[i] == '35' or ae[i] == '36' or ae[i] == '37' or ae[i] == '38' or ae[i] == '39':
-                    bins_des.append(37)   
-                if ae[i] == '40' or ae[i] == '41' or ae[i] == '42' or ae[i] == '43' or ae[i] == '44':
-                    bins_des.append(42)        
-                if ae[i] == '45' or ae[i] == '46' or ae[i] == '47' or ae[i] == '48' or ae[i] == '49' or ae[i] == 'More than 50 year':
-                    bins_des.append(47)    
-
+                if ae[i] == 'Less than 1 year':
+                    bins_des.append(0.5)
+                else:    
+                    if ae[i] == 'More than 50 years':
+                        bins_des.append(50.5)
+                    else: 
+                        if pd.isnull(ae[i]) == 0:
+                            bins_des.append(int(ae[i]))  
+    print('Hombres')
     plt.hist(bins_hom, bins = 10)
     plt.show()
+    print('Mujeres')
     plt.hist(bins_muj, bins = 10)
     plt.show()
+    print('Desconocido')
     plt.hist(bins_des, bins = 10)
     plt.show()                    
     return
@@ -374,7 +343,7 @@ def fun_siete(data):
                tem = lista_nom.count(a)
                if tem == 0:
                    lista_nom.append(a)
-    lista_nom.append('Unkown')             
+    lista_nom.append('Unknown')             
     tot_nom = len(lista_nom)
 
     hr_tot = []
@@ -442,7 +411,7 @@ def fun_nueve(data):
                tem = lista_nom.count(a)
                if tem == 0:
                    lista_nom.append(a)
-    lista_nom.append('Unkown')             
+    lista_nom.append('Unknown')             
     tot_nom = len(lista_nom)
 
     edad_tot = []
@@ -554,7 +523,7 @@ def fun_doce(data):
                if tem == 0:
                    lista_nom.append(a)
     
-    lista_nom.append('Unkown')             
+    lista_nom.append('Unknown')          
     tot_nom = len(lista_nom)
     sal_tot = []
     for i in range(0,tot_nom):
@@ -607,9 +576,9 @@ def fun_trece(data):
                if tem == 0:
                    lista_nom.append(a)
 
-    lista_nom.append('Unkown')             
+    lista_nom.append('Unknown')             
     tot_nom = len(lista_nom)
-
+    print(lista_nom)
     freq_len = []
 
     for i in range(0,tot_nom):
